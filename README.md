@@ -223,17 +223,3 @@ A documentação Swagger estará em: `http://localhost:5000/docs`
 web: gunicorn app:app
 ```
 
-### Deploy no Render
-
-1. Acesse [render.com](https://render.com) e crie uma conta
-2. Crie um **Web Service** conectado ao seu repositório
-3. Build Command: `pip install -r requirements.txt`
-4. Start Command: `gunicorn app:app`
-5. Adicione as variáveis de ambiente no painel
-6. Crie um banco MySQL externo (ex: [PlanetScale](https://planetscale.com) ou [Aiven](https://aiven.io)) e use as credenciais
-
----
-
-## 📖 Documentação interativa
-
-Com a API rodando, acesse `/docs` para visualizar e testar todos os endpoints via **Swagger UI**.
