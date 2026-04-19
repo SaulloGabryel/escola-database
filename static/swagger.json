@@ -1,0 +1,242 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Escola",
+    "description": "API REST para gerenciamento de alunos, cursos e matrículas.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    { "url": "http://localhost:5000", "description": "Servidor local" }
+  ],
+  "tags": [
+    { "name": "Alunos", "description": "Gerenciamento de alunos" },
+    { "name": "Cursos", "description": "Gerenciamento de cursos" },
+    { "name": "Matrículas", "description": "Gerenciamento de matrículas" }
+  ],
+  "paths": {
+    "/alunos/": {
+      "get": {
+        "tags": ["Alunos"],
+        "summary": "Listar todos os alunos",
+        "responses": { "200": { "description": "Lista de alunos" } }
+      },
+      "post": {
+        "tags": ["Alunos"],
+        "summary": "Criar um aluno",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["nome", "email"],
+                "properties": {
+                  "nome": { "type": "string", "example": "João Silva" },
+                  "email": { "type": "string", "example": "joao@email.com" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Aluno criado" },
+          "400": { "description": "Requisição inválida" }
+        }
+      }
+    },
+    "/alunos/{id}": {
+      "get": {
+        "tags": ["Alunos"],
+        "summary": "Buscar aluno por ID",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": {
+          "200": { "description": "Aluno encontrado" },
+          "404": { "description": "Aluno não encontrado" }
+        }
+      },
+      "put": {
+        "tags": ["Alunos"],
+        "summary": "Atualizar aluno",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["nome", "email"],
+                "properties": {
+                  "nome": { "type": "string" },
+                  "email": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Aluno atualizado" },
+          "404": { "description": "Aluno não encontrado" }
+        }
+      },
+      "delete": {
+        "tags": ["Alunos"],
+        "summary": "Deletar aluno",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": {
+          "200": { "description": "Aluno deletado" },
+          "404": { "description": "Aluno não encontrado" }
+        }
+      }
+    },
+    "/cursos/": {
+      "get": {
+        "tags": ["Cursos"],
+        "summary": "Listar todos os cursos",
+        "responses": { "200": { "description": "Lista de cursos" } }
+      },
+      "post": {
+        "tags": ["Cursos"],
+        "summary": "Criar um curso",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["titulo"],
+                "properties": {
+                  "titulo": { "type": "string", "example": "Python para Iniciantes" },
+                  "descricao": { "type": "string", "example": "Curso introdutório de Python" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Curso criado" },
+          "400": { "description": "Requisição inválida" }
+        }
+      }
+    },
+    "/cursos/{id}": {
+      "get": {
+        "tags": ["Cursos"],
+        "summary": "Buscar curso por ID",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": {
+          "200": { "description": "Curso encontrado" },
+          "404": { "description": "Curso não encontrado" }
+        }
+      },
+      "put": {
+        "tags": ["Cursos"],
+        "summary": "Atualizar curso",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["titulo"],
+                "properties": {
+                  "titulo": { "type": "string" },
+                  "descricao": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Curso atualizado" },
+          "404": { "description": "Curso não encontrado" }
+        }
+      },
+      "delete": {
+        "tags": ["Cursos"],
+        "summary": "Deletar curso",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": {
+          "200": { "description": "Curso deletado" },
+          "404": { "description": "Curso não encontrado" }
+        }
+      }
+    },
+    "/cursos/{id}/alunos": {
+      "get": {
+        "tags": ["Cursos"],
+        "summary": "Listar alunos de um curso",
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": {
+          "200": { "description": "Lista de alunos do curso" },
+          "404": { "description": "Curso não encontrado" }
+        }
+      }
+    },
+    "/matriculas/": {
+      "post": {
+        "tags": ["Matrículas"],
+        "summary": "Matricular aluno em curso",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["aluno_id", "curso_id"],
+                "properties": {
+                  "aluno_id": { "type": "integer", "example": 1 },
+                  "curso_id": { "type": "integer", "example": 2 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Matrícula criada" },
+          "400": { "description": "Regra de negócio violada" },
+          "404": { "description": "Aluno ou curso não encontrado" }
+        }
+      }
+    },
+    "/matriculas/aluno/{aluno_id}/cursos": {
+      "get": {
+        "tags": ["Matrículas"],
+        "summary": "Listar cursos de um aluno",
+        "parameters": [{ "name": "aluno_id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": {
+          "200": { "description": "Lista de cursos do aluno" },
+          "404": { "description": "Aluno não encontrado" }
+        }
+      }
+    },
+    "/matriculas/aluno/{aluno_id}/curso/{curso_id}/cancelar": {
+      "patch": {
+        "tags": ["Matrículas"],
+        "summary": "Cancelar matrícula",
+        "parameters": [
+          { "name": "aluno_id", "in": "path", "required": true, "schema": { "type": "integer" } },
+          { "name": "curso_id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Matrícula cancelada" },
+          "404": { "description": "Matrícula não encontrada" }
+        }
+      }
+    },
+    "/matriculas/aluno/{aluno_id}/curso/{curso_id}/concluir": {
+      "patch": {
+        "tags": ["Matrículas"],
+        "summary": "Concluir curso (matrícula)",
+        "parameters": [
+          { "name": "aluno_id", "in": "path", "required": true, "schema": { "type": "integer" } },
+          { "name": "curso_id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Matrícula concluída" },
+          "404": { "description": "Matrícula não encontrada" }
+        }
+      }
+    }
+  }
+}
